@@ -75,7 +75,6 @@ LinkedList.prototype.makeNode = function(value) {
   return node;
 };
 
-
 var list = new LinkedList();
 list.tail;         //yields 'null'
 list.addToTail(4);
