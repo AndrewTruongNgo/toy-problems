@@ -45,3 +45,4 @@ let mergeSort = (arr) => {
 }
 
 mergeSort([10, 24, 76, 73, 73, 1, 9])
+mergeSort(['b', 'u', 'o', 'a', 'r', 'c'])
