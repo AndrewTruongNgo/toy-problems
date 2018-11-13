@@ -74,7 +74,72 @@ class BinarySearchTree {
     }
   }
 
+  bfs() {
+    let node = this.root;
+    let queue = [];
+    let visited = [];
+    queue.push(node);
 
+    while(queue.length > 0) {
+      node = queue.shift();
+      visited.push(node.value);
+      if (node.left) {
+        queue.push(node.left);
+      }
+      if (node.right) {
+        queue.push(node.right);
+      }
+    }
+    return visited;
+  }
+
+  dfsPre() {
+    let node = this.root;
+    let visited = [];
+    let traverse = (node) => {
+      visited.push(node.value);
+      if (node.left) {
+        traverse(node.left);
+      }
+      if(node.right) {
+        traverse(node.right);
+      }
+    }
+    traverse(node);
+    return visited;
+  }
+
+  dfsPost() {
+    let node = this.root;
+    let visited = [];
+    let traverse = (node) => {
+      if (node.left) {
+        traverse(node.left);
+      }
+      if(node.right) {
+        traverse(node.right);
+      }
+      visited.push(node.value);
+    }
+    traverse(node);
+    return visited;
+  }
+
+  dfsInOrder() {
+    let node = this.root;
+    let visited = [];
+    let traverse = (node) => {
+      if (node.left) {
+        traverse(node.left);
+      }
+      visited.push(node.value);
+      if(node.right) {
+        traverse(node.right);
+      }
+    }
+    traverse(node);
+    return visited;
+  }
 
 }
 
