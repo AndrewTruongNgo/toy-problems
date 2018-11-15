@@ -69,7 +69,6 @@ class Graph {
 
     recurse(startingNode);
     return results;
-
   }
 
   dfsi(startingNode) {
@@ -114,9 +113,6 @@ class Graph {
     }
     return results;
   }
-
-
-
 
 }
 
