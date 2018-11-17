@@ -13,11 +13,8 @@ class PriorityQueue {
   }
 
   sort() {
-    this.values.sort((a, b) => a.priority - b.priority);
+    this.values.sort((a,b) => a.priority - b.priority);
   }
-
-
-
 }
 
 
@@ -34,7 +31,7 @@ class WeightedGraph {
 
   addEdge(vertex1, vertex2, weight) {
     if (!this.adjacencyList[vertex1] || !this.adjacencyList[vertex2]) {
-      return undefined;
+      throw new Error('Vertex not found');
     }
 
     this.adjacencyList[vertex1].push({node: vertex2, weight});
@@ -47,9 +44,10 @@ class WeightedGraph {
     const nodes = new PriorityQueue();
     const distances = {};
     const previous = {};
+    let path = [];
     let smallest;
 
-    //Build up initial state
+    //Builds distances and PriorityQueue
     for (let vertex in this.adjacencyList) {
       if (vertex === start) {
         distances[vertex] = 0;
@@ -60,25 +58,37 @@ class WeightedGraph {
       }
       previous[vertex] = null;
     }
-    // as long as there is something to visit
-    while(nodes.values.length) {
-      smallest = nodes.dequeue().value;
-      console.log(smallest)
-      if(smallest === finish) {
-        // WE DONE
+
+    //While PriorityQueue has elem, compare smallest in distances
+    while (nodes.values.length > 0) {
+      let smallest = nodes.dequeue().value;
+      if (smallest === finish) {
+        // DONE
+        console.log(distances);
+        console.log(previous);
+        while (previous[smallest]) {
+          path.push(smallest);
+          smallest = previous[smallest];
+        }
+        break;
+
       }
 
-      if(smallest || distances[smallest] !== Infinity) {
+      if (smallest || distances[smallest] !== Infinity) {
         for (let neighbor in this.adjacencyList[smallest]) {
-          // Find neighboring node
           let nextNode = this.adjacencyList[smallest][neighbor];
-          // console.log(nextNode);
-          // Calculate new distance to neighboring node
           let candidate = distances[smallest] + nextNode.weight;
+          if (candidate < distances[nextNode.node]) {
+            distances[nextNode.node] = candidate;
+            previous[nextNode.node] = smallest;
+            nodes.enqueue(nextNode.node, candidate);
+          }
         }
       }
-
     }
+
+    path.push(start);
+    return path.reverse();
   }
 
 }
