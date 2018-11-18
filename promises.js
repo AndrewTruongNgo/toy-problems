@@ -51,11 +51,16 @@ let test2 = (num2) => {
 
 
 // Async magic
+//Can impliment try and catch for error handling
 
 let asyncTest = async() => {
-  let result = await test(10);
-  result2 = test2(result);
-  test2(result2);
+  try {
+    let result = await test('pizza');
+    result2 = test2(result);
+    test2(result2);
+  } catch (err) {
+    console.log(err);
+  }
 }
 
 asyncTest();
