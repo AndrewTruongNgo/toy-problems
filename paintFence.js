@@ -8,7 +8,7 @@ let paintFence = (n, k) => {
   }
 
   if (n === 2) {
-    return k + (k-1);
+    return k + k * (k-1);
   }
 
   let results = k + (k-1);
@@ -22,4 +22,4 @@ let paintFence = (n, k) => {
 
 }
 
-paintFence(2, 3)
+paintFence(3, 2)
