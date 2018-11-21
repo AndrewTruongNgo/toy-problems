@@ -22,3 +22,25 @@ let circularArray = (arr) => {
 }
 
 circularArray([2, 2, -1]);
+
+
+let circularArray = (arr) => {
+  let storage = {};
+  let length = arr.length;
+
+  for (let i = 0; i < arr.length; i++) {
+    let pos = (arr[i] + i) % length;
+    if (storage[pos] === undefined) {
+      storage[pos] = 1;
+    } else {
+      return false;
+    }
+  }
+
+  let arr2 = Object.values(storage)
+  let total = arr2.reduce((a, b) => a + b);
+
+  return total === length;
+
+}
+circularArray([2, 2, -1]);
