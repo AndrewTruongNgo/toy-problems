@@ -1,38 +1,50 @@
 function findDuplicates(arr1, arr2) {
-  // your code goes here
+
   let results = [];
-  let shortArr = null;
-  let longArr = null;
+  let smallArr = null;
+  let largeArr = null;
+
+  if (!arr1.length || !arr2.length) {
+    return results;
+  }
 
   if (arr1.length > arr2.length) {
-    shortArr = arr2;
-    longArr = arr1;
-
+    smallArr = arr2;
+    largeArr = arr2;
   } else {
-    shortArr = arr1;
-    longArr = arr2;
+    smallArr = arr1;
+    largeArr = arr2;
   }
 
-  let binarySearch = (left, right, target) => {
-    let middle = Math.floor(((left + right)/2));
+  let binarySearch = (arr, target) => {
 
-    if(left === right && target !== longArr[middle]) {
-      return;
+    let start = 0;
+    let end = arr.length - 1;
+    let middle = Math.floor((start + end)/2);
+
+    while(arr[middle] !== target && start <= end) {
+      if (target < arr[middle]) {
+        end = middle - 1;
+        middle = Math.floor((start + end)/2);
+      } else {
+        start = middle + 1;
+        middle = Math.floor((start + end)/2);
+      }
+
     }
-
-    if (target === longArr[middle]) {
+    if (arr[middle] === target) {
       results.push(target);
-    } else if (target < longArr[middle]) {
-      right  = middle - 1;
-      binarySearch(left, right, target);
-    } else {
-      left = middle + 1;
-      binarySearch(left, right, target);
     }
   }
 
-  for (let i = 0; i < shortArr.length; i++) {
-    binarySearch(0, longArr.length, shortArr[i]);
+
+  for (let i = 0; i < smallArr.length; i++) {
+
+     binarySearch(largeArr, smallArr[i]);
+
   }
+
   return results;
 }
+
+findDuplicates([1,2,3,4,5,7],[7,8,9,10,12,14])
