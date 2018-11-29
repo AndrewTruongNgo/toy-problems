@@ -13,5 +13,23 @@
   * console.log(anagrams); // [ 'abc', 'acb', 'bac', 'bca', 'cab', 'cba' ]
   */
 
-// var allAnagrams = function(string) {
+var allAnagrams = function(string) {
   // Your code here.
+
+  let results = [];
+
+  let genAnagrams = (ana, str) => {
+    if (!str) {
+      results.push(ana);
+      return;
+    }
+
+    for (let i = 0; i < str.length; i++) {
+      genAnagrams(ana + str[i], str.slice(0, i) + str.slice(i + 1));
+    }
+  }
+  genAnagrams('', string);
+  return results;
+}
+
+allAnagrams('cat')
