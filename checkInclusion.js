@@ -1,39 +1,38 @@
 let checkInclusion = (s1, s2) => {
+  //Initialize perm array
   if (s1.length > s2.length) return false;
 
-  //Initialize s1
   let perm = new Array(26).fill(0);
   let charCode = 'a'.charCodeAt();
-  for (let i = 0; i < s1.length; i++) {
-    let char = s1[i];
-    let index = char.charCodeAt() - charCode;
-    perm[index]++;
+  for(let i = 0; i < s1.length; i++) {
+    let curr = s1[i];
+    let currIndex = curr.charCodeAt() - charCode;
+    perm[currIndex]++;
   }
 
-  //Initialize s2 sub
-  let subArr = new Array(26).fill(0);
-  let start = 0
-  let end = s1.length;
-  let sub = s2.slice(start, end);
+  //Initialize subArray
+  let subArray = new Array(26).fill(0);
+  let start = 0;
+  let length = s1.length;
+  let sub = s2.slice(start, length);
   for (let i = 0; i < sub.length; i++) {
     let curr = sub[i];
-    let index = curr.charCodeAt() - charCode;
-    subArr[index]++;
+    let currIndex = curr.charCodeAt() - charCode;
+    subArray[currIndex]++;
   }
 
-  //Sliding window
-  for (let i = end; i <= s2.length; i++) {
-    let match = true;
-    for (let j = 0; j < subArr.length; j++) {
-      if (perm[j] !== subArr[j]) {
-        match = false;
+  //Sliding Window
+  for (let i = length; i < s2.length; i++) {
+    let valid = true;
+    for (let j = 0; j < subArray.length; j++) {
+      if (perm[j] !== subArray[j]) {
+        valid = false;
         break;
       }
     }
-    if (match) return true;
-    if(i===s2.length) return false;
-    subArr[s2[i - end].charCodeAt() - charCode]--;
-    subArr[s2[i].charCodeAt() - charCode]++;
+    if (valid) return true;
+    subArray[s2[i - length].charCodeAt() - charCode]--;
+    subArray[s2[i].charCodeAt() - charCode]++;
   }
   return false;
 }
