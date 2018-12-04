@@ -38,3 +38,38 @@ let checkInclusion = (s1, s2) => {
 }
 
 checkInclusion('abc', 'baeck');
+
+
+
+
+let checkInclusion = (s1, s2) => {
+  //Initialize perm array
+  let arr = new Array(26).fill(0);
+  let charCode = 'a'.charCodeAt();
+  s1.split('').forEach((char) => arr[char.charCodeAt() - charCode]++);
+
+  let length = s1.length;
+  let start = 0;
+  let end = length;
+
+  while(s2[end - 1]) {
+    let sub = new Array(26).fill(0);
+    let subArr = s2.slice(start, end);
+    let isValid = true;
+    subArr.split('').forEach((char) => {
+      sub[char.charCodeAt() - charCode]++;
+    })
+    for(let i = 0; i < sub.length; i++) {
+      if (sub[i] !== arr[i]) {
+        isValid = false;
+      }
+    }
+    if(isValid) return true;
+    start++;
+    end++;
+  }
+
+  return false;
+}
+
+checkInclusion('abc', 'back');

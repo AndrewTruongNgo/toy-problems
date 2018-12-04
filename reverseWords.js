@@ -1,57 +1,33 @@
 function reverseWords(arr) {
   // your code goes here
-  // let reversed = '';
-
-
-  let reverseWord = (char, start, end) => {
-    let temp = null;
+  let reverse = (arr, start, end) => {
     while(start < end) {
-      temp = char[start];
-      char[start] = char[end];
-      char[end] = temp;
+      let temp = arr[start];
+      arr[start] = arr[end];
+      arr[end] = temp;
       start++;
       end--;
     }
   }
 
-  reverseWord(arr, 0, arr.length - 1);
+  reverse(arr, 0, arr.length - 1);
 
-  // wordStart = null
-  //   for i from 0 to n-1:
-  //       if (arr[i] == ' '):
-  //           if (wordStart != null):
-  //               reverseWord(arr, wordStart, i-1)
-  //               wordStart = null
-  //       else if (i == n-1):
-  //           if (wordStart != null):
-  //               reverseWord(arr, wordStart, i)
-  //       else:
-  //           if (wordStart == null):
-  //               wordStart = i
-
-  let wordStart = null;
+  let start = 0;
 
   for (let i = 0; i < arr.length; i++) {
-    console.log(wordStart)
-
-    if (wordStart === null) {
-      wordStart = i;
+    if (arr[i] === ' ') {
+      reverse(arr, start, i - 1);
+      start = i + 1;
     }
 
-    if (arr[i] === ' ') {
-        reverseWord(arr, wordStart, i - 1);
-        wordStart = null;
-    } else if (i === arr.length - 1) {
-      if (wordStart !== null) {
-        reverseWord(arr, wordStart, i);
-      }
+    if (i === arr.length - 1) {
+      reverse(arr, start, i);
     }
   }
 
   return arr;
 }
 
-arr = [ 'p', 'e', 'r', 'f', 'e', 'c', 't', '  ',
+reverseWords([ 'p', 'e', 'r', 'f', 'e', 'c', 't', ' ',
                 'm', 'a', 'k', 'e', 's', '  ',
-                'p', 'r', 'a', 'c', 't', 'i', 'c', 'e' ];
-reverseWords(arr);
+                'p', 'r', 'a', 'c', 't', 'i', 'c', 'e' ]);

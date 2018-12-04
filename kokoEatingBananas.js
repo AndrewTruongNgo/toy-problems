@@ -1,38 +1,25 @@
-// function sayHello() {
-//   console.log('Hello, World');
-// }
+let minEatingSpeed = (piles, H) => {
+  let start = 1;
+  let end = piles.reduce((acc, val) => acc + val, 0);
 
-// sayHello();
-// click 'run'
+  while(start <= end) {
+    let K = Math.ceil((start + end) / 2);
 
-/*
-3, 6, 7, 11   H =8//
-K =7
+    let newPile = piles.map((pile) => {
+      return Math.ceil(pile/K);
+    }).reduce((acc, val) => (acc + val), 0);
 
-Math.ceil(100/40)
+    if (newPile <= H) {
+      end = K - 1;
+    } else {
+      start = K + 1;
+    }
+  }
+  return start
 
-Input: piles = [100,11,23,4,20], H = 6
+}
 
-K = 52
+minEatingSpeed([332484035, 524908576, 855865114, 632922376, 222257295, 690155293, 112677673, 679580077, 337406589, 290818316, 877337160, 901728858, 679284947, 688210097, 692137887, 718203285, 629455728, 941802184], 823855818)
 
-currH <= H
 
-//Iterate through arr
-//Find max elem
-//Create start and end variables
-//K will be average of start and end
-
-//Create pointer for arr
-//Create currH counter
-//While currH <= H
-//If !arr[pointer] break
-//Subtract arr[pointer] with K, incrementing currH
-//If arr[pointer] <= 0, increment pointer
-
-//Compare currH with H
-//If currH <= H, then K is too high
-//Assign end as K and binary search for new K
-//Else K is too low
-//Assign start as K and binary search for new K
-
-*/
+minEatingSpeed([3,6,7,11], 8)
