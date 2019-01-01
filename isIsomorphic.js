@@ -4,40 +4,20 @@
  * @return {boolean}
  */
 var isIsomorphic = function(s, t) {
-    let arr = [];
-    let char;
-    let feq;
+  if(s.length !== t.length) return false;
 
-    char = s[0];
-    feq = 1;
-    arr.push(feq);
+    let helper = (s, t) => {
+        let map = {};
 
-    for (let i = 1; i < s.length; i++) {
-        let curr = s[i];
-        if (char === curr) {
-            arr.push(feq);
-        } else {
-            feq++;
-            arr.push(feq)
-            char = curr;
+        for (let i = 0; i < s.length; i++) {
+            if(!map[s[i]]) map[s[i]] = t[i];
+
+            if (map[s[i]] !== t[i]) {
+                return false;
+            }
         }
+        return true;
     }
 
-    char = t[0];
-    feq = 1;
-
-    for (let i = 1; i < t.length; i++) {
-        let curr = t[i];
-
-        if (curr !== char) {
-            char = curr;
-            feq++
-        }
-
-        if (arr[i] !== feq) {
-            return false;
-        }
-
-    }
-    return true;
+    return helper(s, t) && helper(t, s);
 };
