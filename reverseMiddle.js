@@ -33,7 +33,7 @@ function reverseMiddle (string) {
   swap(startLeft, endLeft);
   swap(startRight, endRight);
 
-  return array;
+  return array.join('');
 
 }
 
