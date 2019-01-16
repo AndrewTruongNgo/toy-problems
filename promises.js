@@ -28,7 +28,7 @@ let test = (num) => {
       console.log(results);
       setTimeout( () => resolve(results), 2000);
     } else {
-      reject('This aint no number');
+      reject('This aint 10');
     }
   })
 }
@@ -53,9 +53,9 @@ let test2 = (num2) => {
 // Async magic
 //Can impliment try and catch for error handling
 
-let asyncTest = async() => {
+let asyncTest = async(num) => {
   try {
-    let result = await test('pizza');
+    let result = await test(num);
     result2 = test2(result);
     test2(result2);
   } catch (err) {
@@ -63,4 +63,4 @@ let asyncTest = async() => {
   }
 }
 
-asyncTest();
+asyncTest(10);
